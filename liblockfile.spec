@@ -15,6 +15,7 @@ Release:	%mkrel 1
 License:	GPL
 Group:		System/Libraries
 URL:		http://packages.qa.debian.org/liblockfile
+BuildRoot:	%_tmppath/%{name}-%{version}-root-%(id -u -n)
 Source0:	http://ftp.debian.org/debian/pool/main/libl/liblockfile/liblockfile_1.06.1.tar.bz2
 Patch0:		liblockfile-1.06.1-eaccess.patch
 
