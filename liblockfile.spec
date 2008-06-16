@@ -11,7 +11,7 @@
 Summary:	NFS-safe locking library
 Name:		%{name}
 Version:	%{version}
-Release:	%mkrel 1
+Release:	%{release}
 License:	GPL
 Group:		System/Libraries
 URL:		http://packages.qa.debian.org/liblockfile
