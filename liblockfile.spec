@@ -16,7 +16,6 @@ Group:		System/Libraries
 URL:		http://packages.qa.debian.org/liblockfile
 BuildRoot:	%_tmppath/%{name}-%{version}-root-%(id -u -n)
 Source0:	http://ftp.debian.org/debian/pool/main/libl/liblockfile/%{name}_%{version}.orig.tar.gz
-Patch0:		liblockfile-1.06.1-eaccess.patch
 Patch1:		liblockfile-1.08-fix-install-perms.patch
 
 %description
@@ -59,7 +58,6 @@ This package contains header file and development libraries.
 
 %prep 
 %setup -q
-#patch0 -p1 -b .eaccess
 %patch1 -p0 -b .perm
 
 %build
