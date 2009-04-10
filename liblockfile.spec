@@ -1,12 +1,11 @@
 %define name	liblockfile
-%define version	1.06.1
-%define release	%mkrel 3
+%define version	1.08
+%define release	%mkrel 1
 
 %define	major	1
 
 %define	libname	%mklibname lockfile %major
-%define	dlibname	%mklibname lockfile %major -d
-%define	pdlibname	%mklibname lockfile -d
+%define	dlibname	%mklibname lockfile -d
 
 Summary:	NFS-safe locking library
 Name:		%{name}
@@ -16,8 +15,9 @@ License:	GPL
 Group:		System/Libraries
 URL:		http://packages.qa.debian.org/liblockfile
 BuildRoot:	%_tmppath/%{name}-%{version}-root-%(id -u -n)
-Source0:	http://ftp.debian.org/debian/pool/main/libl/liblockfile/liblockfile_1.06.1.tar.bz2
+Source0:	http://ftp.debian.org/debian/pool/main/libl/liblockfile/%{name}_%{version}.orig.tar.gz
 Patch0:		liblockfile-1.06.1-eaccess.patch
+Patch1:		liblockfile-1.08-fix-install-perms.patch
 
 %description
 Liblockfile is a shared library with NFS-safe locking functions.
@@ -48,10 +48,8 @@ priviliges are needed by calling an external setgid-mail utility called
 Summary:	NFS-safe locking development library
 Group:		Development/C
 Provides:	lockfile-devel = %{version}-%{release}
-%if %{_lib} != lib
 Provides:	liblockfile-devel = %{version}-%{release}
-%endif
-Provides:	%pdlibname = %{version}-%{release}
+Obsoletes:	%{_lib}lockfile1-devel < %{version}-%{release}
 Requires:	%libname = %{version}-%{release}
 
 %description -n	%dlibname
@@ -61,10 +59,11 @@ This package contains header file and development libraries.
 
 %prep 
 %setup -q
-%patch0 -p1 -b .eaccess
+#patch0 -p1 -b .eaccess
+%patch1 -p0 -b .perm
 
 %build
-%configure --enable-shared
+%configure2_5x --enable-shared
 %make
 
 %install
@@ -93,9 +92,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n %libname
 %defattr(-,root,root,755)
-%doc README liblockfile.lsm debian/changelog
-%{_libdir}/liblockfile.so.1
-%{_libdir}/liblockfile.so.1.0
+%doc README liblockfile.lsm
+%{_libdir}/liblockfile.so.%{major}
+%{_libdir}/liblockfile.so.%{major}.*
 
 %files -n %dlibname
 %defattr(-,root,root,755)
