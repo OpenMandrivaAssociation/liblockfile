@@ -1,6 +1,6 @@
 %define name	liblockfile
 %define version	1.08
-%define release	%mkrel 4
+%define release	%mkrel 5
 
 %define	major	1
 
