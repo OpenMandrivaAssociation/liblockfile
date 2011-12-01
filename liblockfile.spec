@@ -65,16 +65,16 @@ This package contains header file and development libraries.
 %make
 
 %install
-rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT/%{_includedir} \
-	$RPM_BUILD_ROOT/%{_bindir} \
-	$RPM_BUILD_ROOT/%{_libdir} \
-	$RPM_BUILD_ROOT/%{_mandir}/man{1,3}
-make install ROOT=$RPM_BUILD_ROOT
-make install_static ROOT=$RPM_BUILD_ROOT
+rm -rf %{buildroot}
+mkdir -p %{buildroot}/%{_includedir} \
+	%{buildroot}/%{_bindir} \
+	%{buildroot}/%{_libdir} \
+	%{buildroot}/%{_mandir}/man{1,3}
+make install ROOT=%{buildroot}
+make install_static ROOT=%{buildroot}
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %if %mdkversion < 200900
 %post -n %libname -p /sbin/ldconfig
