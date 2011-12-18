@@ -1,6 +1,6 @@
 %define name	liblockfile
-%define version	1.08
-%define release	%mkrel 5
+%define version	1.09
+%define release	1
 
 %define	major	1
 
@@ -14,7 +14,6 @@ Release:	%{release}
 License:	GPL
 Group:		System/Libraries
 URL:		http://packages.qa.debian.org/liblockfile
-BuildRoot:	%_tmppath/%{name}-%{version}-root-%(id -u -n)
 Source0:	http://ftp.debian.org/debian/pool/main/libl/liblockfile/%{name}_%{version}.orig.tar.gz
 Patch1:		liblockfile-1.08-fix-install-perms.patch
 
@@ -65,7 +64,6 @@ This package contains header file and development libraries.
 %make
 
 %install
-rm -rf %{buildroot}
 mkdir -p %{buildroot}/%{_includedir} \
 	%{buildroot}/%{_bindir} \
 	%{buildroot}/%{_libdir} \
@@ -73,29 +71,16 @@ mkdir -p %{buildroot}/%{_includedir} \
 make install ROOT=%{buildroot}
 make install_static ROOT=%{buildroot}
 
-%clean
-rm -rf %{buildroot}
-
-%if %mdkversion < 200900
-%post -n %libname -p /sbin/ldconfig
-%endif
-%if %mdkversion < 200900
-%postun -n %libname -p /sbin/ldconfig
-%endif
-
 %files -n dotlockfile
-%defattr(-,root,root,755)
 %{_bindir}/dotlockfile
 %{_mandir}/man1/dotlockfile.1*
 
 %files -n %libname
-%defattr(-,root,root,755)
 %doc README liblockfile.lsm
 %{_libdir}/liblockfile.so.%{major}
 %{_libdir}/liblockfile.so.%{major}.*
 
 %files -n %dlibname
-%defattr(-,root,root,755)
 %{_includedir}/lockfile.h
 %{_includedir}/maillock.h
 %{_libdir}/liblockfile.a
