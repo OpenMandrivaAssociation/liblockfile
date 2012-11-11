@@ -1,0 +1,11 @@
+--- Makefile.in~	2001-03-17 05:08:33.000000000 +0100
++++ Makefile.in	2009-04-10 10:29:31.000000000 +0200
+@@ -63,7 +63,7 @@
+ 		if [ "$(MAILGROUP)" != "" ]; then\
+ 		  install -g $(MAILGROUP) -m 2755 dotlockfile $(ROOT)$(bindir);\
+ 		else \
+-		  install -g root -m 755 dotlockfile $(ROOT)$(bindir); \
++		  install -m 755 dotlockfile $(ROOT)$(bindir); \
+ 		fi
+ 		install -m 644 *.1 $(ROOT)$(mandir)/man1
+ 		install -m 644 *.3 $(ROOT)$(mandir)/man3
