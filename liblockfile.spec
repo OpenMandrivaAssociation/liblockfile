@@ -5,7 +5,7 @@
 Summary:	NFS-safe locking library
 Name:		liblockfile
 Version:	1.09
-Release:	9
+Release:	10
 License:	GPLv2
 Group:		System/Libraries
 Url:		http://packages.qa.debian.org/liblockfile
