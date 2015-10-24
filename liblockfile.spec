@@ -52,7 +52,7 @@ This package contains header file and development libraries.
 %patch1 -p0 -b .perm
 
 %build
-%configure2_5x --enable-shared
+%configure --enable-shared
 %make
 
 %install
