@@ -2,6 +2,8 @@
 %define	libname	%mklibname lockfile %major
 %define	devname	%mklibname lockfile -d
 
+%define _disable_lto 1
+
 Summary:	NFS-safe locking library
 Name:		liblockfile
 Version:	1.09
