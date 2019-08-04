@@ -1,18 +1,18 @@
 %define	major	1
 %define	libname	%mklibname lockfile %major
 %define	devname	%mklibname lockfile -d
+%define	devstatic	%mklibname lockfile -d -s
 
 %define _disable_lto 1
 
 Summary:	NFS-safe locking library
 Name:		liblockfile
-Version:	1.09
-Release:	12
+Version:	1.15
+Release:	1
 License:	GPLv2
 Group:		System/Libraries
 Url:		http://packages.qa.debian.org/liblockfile
 Source0:	http://ftp.debian.org/debian/pool/main/libl/liblockfile/%{name}_%{version}.orig.tar.gz
-Patch1:		liblockfile-1.08-fix-install-perms.patch
 
 %description
 Liblockfile is a shared library with NFS-safe locking functions.
@@ -49,33 +49,43 @@ Requires:	%{libname} = %{version}-%{release}
 %description -n	%{devname}
 This package contains header file and development libraries.
 
+%package -n	%{devstatic}
+Summary:	NFS-safe locking development library
+Group:		Development/C
+Provides:	lockfile-static-devel = %{version}-%{release}
+Provides:	%{name}-static-devel = %{version}-%{release}
+Requires:	%{devname} = %{version}-%{release}
+
+%description -n	%{devstatic}
+This package contains header file and development libraries.
+
 %prep 
-%setup -q
-%patch1 -p0 -b .perm
+%autosetup -p1
+# remove -g root from install
+sed -i "s/-g root//" Makefile.in
 
 %build
-%configure --enable-shared
+%configure --enable-shared --prefix=%{buildroot} --bindir=%{buildroot}%{_bindir} --mandir=%{buildroot}%{_mandir} --libdir=%{buildroot}%{_libdir} --includedir=%{buildroot}%{_includedir}
 %make
 
 %install
-mkdir -p %{buildroot}/%{_includedir} \
-	%{buildroot}/%{_bindir} \
-	%{buildroot}/%{_libdir} \
-	%{buildroot}/%{_mandir}/man{1,3}
-make install ROOT=%{buildroot}
+export DESTDIR=%{buildroot}
+make install
 
 %files -n dotlockfile
 %{_bindir}/dotlockfile
 %{_mandir}/man1/dotlockfile.1*
 
 %files -n %{libname}
-%doc README liblockfile.lsm
 %{_libdir}/liblockfile.so.%{major}*
 
 %files -n %{devname}
+%doc README
 %{_includedir}/lockfile.h
 %{_includedir}/maillock.h
 %{_libdir}/liblockfile.so
 %{_mandir}/man3/lockfile_create.3*
 %{_mandir}/man3/maillock.3*
 
+%files -n %{devstatic}
+%{_libdir}/liblockfile.a
