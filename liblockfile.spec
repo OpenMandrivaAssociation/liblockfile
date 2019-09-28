@@ -7,7 +7,7 @@
 
 Summary:	NFS-safe locking library
 Name:		liblockfile
-Version:	1.15
+Version:	1.16
 Release:	1
 License:	GPLv2
 Group:		System/Libraries
