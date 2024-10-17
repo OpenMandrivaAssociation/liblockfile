@@ -11,7 +11,7 @@ Version:	1.17
 Release:	2
 License:	GPLv2
 Group:		System/Libraries
-Url:		http://packages.qa.debian.org/liblockfile
+Url:		https://packages.qa.debian.org/liblockfile
 Source0:	http://ftp.debian.org/debian/pool/main/libl/liblockfile/%{name}_%{version}.orig.tar.gz
 
 %description
